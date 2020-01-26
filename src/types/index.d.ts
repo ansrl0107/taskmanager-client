@@ -1,6 +1,7 @@
 export interface Ticket {
   id: string;
   name: string;
+  type: TicketType;
 }
 
 export interface User {
@@ -8,16 +9,16 @@ export interface User {
   name: string;
 }
 
-export enum TaskType {
-  DEV = 'dev',
+export enum TicketType {
+  DEV = 'development',
   ISSUE = 'issue',
   BUG = 'bug',
 }
 
 export interface Task {
+  readonly id: string;
   user: User;
   ticket: Ticket;
-  type: TaskType;
   content: string;
   workingTime: number;
 }

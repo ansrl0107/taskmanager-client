@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Row, Col, Card, Button } from 'antd';
+import React, { FC } from 'react';
+import { Row, Col, Card } from 'antd';
 
 const Home: FC = () => {
   const size = {

@@ -10,6 +10,7 @@ import { getUserTasks } from '../api';
 const TaskPage: FC = () => {
   const now = moment().tz('Asia/Seoul');
   const [date, setDate] = useState(now);
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const onChange = (date: moment.Moment | null, dateString: string) => {
     if (date) {
@@ -20,7 +21,7 @@ const TaskPage: FC = () => {
     const tasks = await getUserTasks('smk', date.format('YYYY-MM-DD'));
     setTasks(tasks);
   };
-  const loadTasksCallback = useCallback(loadTasks, []);
+  const loadTasksCallback = useCallback(loadTasks, [date]);
   useEffect(() => { loadTasksCallback(); }, [loadTasksCallback]);
   const style: CSSProperties = {
     display: 'block',
@@ -30,8 +31,8 @@ const TaskPage: FC = () => {
   };
   return (
     <React.Fragment>
-      <DatePicker onChange={onChange} value={now} style={style}/>
-      <TaskTable tasks={tasks}/>
+      <DatePicker onChange={onChange} value={date} style={style}/>
+      <TaskTable tasks={tasks} onDelete={loadTasks}/>
       <TaskInput onAddTask={loadTasks}/>
     </React.Fragment>
   );

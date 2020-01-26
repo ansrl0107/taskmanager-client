@@ -1,29 +1,27 @@
 import axios from 'axios';
-import { Ticket, TaskType, Task, User } from '../types';
+import { Ticket, Task, User } from '../types';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 export const getTickets = async () => {
-  const res = await api.get('/tasks');
+  const res = await api.get('/tickets');
   return res.data.tickets as Ticket[];
 };
 
 export interface TaskBody {
   ticketId: string;
-  type: TaskType;
   content: string;
   workingTime: number;
 }
 export const addTask = async (data: TaskBody) => {
-  const { ticketId, ...body } = data;
   const accessToken = localStorage.getItem('accessToken');
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
   try {
-    const res = await api.post(`tickets/${ticketId}/tasks`, body, { headers });
+    const res = await api.post('tasks', data, { headers });
     if (res.status !== 200) {
       throw new Error('API 오류입니다.');
     }
@@ -32,15 +30,20 @@ export const addTask = async (data: TaskBody) => {
   }
 };
 
+export const deleteTask = async (taskId: string) => {
+  const res = await api.delete(`tasks/${taskId}`);
+  return res.data.task;
+};
+
 export const getUserTasks = async (userId: string, date: string) => {
-  const params = { date };
-  const res = await api.get(`users/${userId}/tasks`, { params });
+  const params = { userId, from: date, to: date };
+  const res = await api.get('tasks', { params });
   return res.data.tasks as Task[];
 };
 
 export const getTeamTasks = async (teamId: string, from: string, to: string) => {
-  const params = { from, to };
-  const res = await api.get(`teams/${teamId}/tasks`, { params });
+  const params = { from, to, teamId };
+  const res = await api.get('tasks', { params });
   return res.data.tasks as Task[];
 };
 

@@ -1,9 +1,11 @@
 import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Icon, Input, Button, Row, Col, Typography, message } from 'antd';
 import { login } from '../api';
+import { useHistory } from 'react-router-dom';
 import { CSSProperties } from 'styled-components';
 
 const Login: FC = () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const emailSuffix = '@tablemanager.io';
@@ -20,6 +22,7 @@ const Login: FC = () => {
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('userId', user.id);
       localStorage.setItem('userName', user.name);
+      history.push('/');
     } catch (err) {
       message.error(err.message);
     }

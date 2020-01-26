@@ -9,7 +9,7 @@ const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        return !isAuthenticated
+        return isAuthenticated
         ? children
         : <Redirect to = {{ pathname: '/sign-in', state: { from: props.location } }}/>;
       }}
