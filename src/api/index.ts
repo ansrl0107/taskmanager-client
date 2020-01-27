@@ -1,21 +1,11 @@
 import axios from 'axios';
-import { Ticket, Task, User } from '../types';
+import { Ticket, Task, User, Project, TaskRequest, ProjectRequest, TicketRequest, UserRequest } from '../types';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
-export const getTickets = async () => {
-  const res = await api.get('/tickets');
-  return res.data.tickets as Ticket[];
-};
-
-export interface TaskBody {
-  ticketId: string;
-  content: string;
-  workingTime: number;
-}
-export const addTask = async (data: TaskBody) => {
+export const addTask = async (data: TaskRequest) => {
   const accessToken = localStorage.getItem('accessToken');
   const headers = {
     Authorization: `Bearer ${accessToken}`,
@@ -52,6 +42,11 @@ export const getTeamMembers = async (teamId: string) => {
   return res.data.users as User[];
 };
 
+export const addTeamMember = async (data: UserRequest) => {
+  const res = await api.post('users', data);
+  return res.data.user as User;
+};
+
 export const login = async (email: string, password: string) => {
   const data = { email, password };
   try {
@@ -69,4 +64,24 @@ export const login = async (email: string, password: string) => {
   } catch (err) {
     throw new Error('서버와 연결할 수 없습니다.');
   }
+};
+
+export const getProjects = async () => {
+  const res = await api.get('/projects');
+  return res.data.projects as Project[];
+};
+
+export const addProject = async (data: ProjectRequest) => {
+  const res = await api.post('/projects', data);
+  return res.data.project as Project;
+};
+
+export const addTicket = async (data: TicketRequest) => {
+  const res = await api.post('/tickets', data);
+  return res.data.ticket as Ticket;
+};
+
+export const getTickets = async () => {
+  const res = await api.get('/tickets');
+  return res.data.tickets as Ticket[];
 };

@@ -75,18 +75,23 @@ const Login: FC = () => {
               />
             </Form.Item>
             <Form.Item>
-              <Col span={12} offset={6}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  block={true}
-                  size="large"
-                  icon="unlock"
-                >
-                  Log in
-                </Button>
-              </Col>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block={true}
+                icon="unlock"
+              >
+                Sign in
+              </Button>
             </Form.Item>
+            <Button
+              type="link"
+              block={true}
+              icon="user-add"
+              onClick={() => history.push('/sign-up')}
+            >
+              Sign up
+            </Button>
           </Form>
         </Col>
       </Row>

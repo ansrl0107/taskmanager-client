@@ -4,6 +4,8 @@ import Plan from './plan';
 import Report from './report';
 import Task from './task';
 import NotFound from './notFound';
+import Project from './project';
+import SignUp from './signUp';
 
 export {
   Home,
@@ -12,4 +14,6 @@ export {
   Report,
   Task,
   NotFound,
+  Project,
+  SignUp,
 };

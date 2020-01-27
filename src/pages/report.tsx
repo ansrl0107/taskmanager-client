@@ -33,10 +33,16 @@ const Report: FC = () => {
     maxWidth: 256,
     width: '100%',
   };
+  const usernames = tasks
+    .map(task => task.user.name)
+    .reduce((acc: string[], cur) => acc.includes(cur) ? acc : [...acc, cur], []);
+  const renderUserTaskTable = (username: string) => (
+    <TaskTable tasks={tasks.filter(task => task.user.name === username)}/>
+  );
   return (
     <React.Fragment>
       <DatePicker.RangePicker onChange={onChangeDateRange} value={dateRange} style={style}/>
-      <TaskTable tasks={tasks}/>
+      {usernames.map(renderUserTaskTable)}
     </React.Fragment>
   );
 };

@@ -1,11 +1,26 @@
 export interface Ticket {
-  id: string;
+  readonly id: string;
+  project: Project;
   name: string;
+  description: string;
   type: TicketType;
+  prioriy: number;
+  readonly closedAt: Date;
 }
 
 export interface User {
-  id: string;
+  teamId: string;
+  email: string;
+  password: string;
+  name: string;
+  readonly id: boolean;
+  readonly isLeader: boolean;
+}
+
+export interface UserRequest {
+  teamId: string;
+  email: string;
+  password: string;
   name: string;
 }
 
@@ -21,4 +36,31 @@ export interface Task {
   ticket: Ticket;
   content: string;
   workingTime: number;
+}
+
+export interface TaskRequest {
+  content: string;
+  workingTime: number;
+  ticketId: string;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  readonly createdAt: Date;
+}
+
+export interface ProjectRequest {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface TicketRequest {
+  projectId: string;
+  name: string;
+  description: string;
+  type: TicketType;
+  priority: number;
 }

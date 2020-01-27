@@ -18,7 +18,11 @@ const TaskPage: FC = () => {
     }
   };
   const loadTasks = async () => {
-    const tasks = await getUserTasks('smk', date.format('YYYY-MM-DD'));
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      throw new Error('나도몰랑');
+    }
+    const tasks = await getUserTasks(userId, date.format('YYYY-MM-DD'));
     setTasks(tasks);
   };
   const loadTasksCallback = useCallback(loadTasks, [date]);
@@ -32,7 +36,7 @@ const TaskPage: FC = () => {
   return (
     <React.Fragment>
       <DatePicker onChange={onChange} value={date} style={style}/>
-      <TaskTable tasks={tasks} onDelete={loadTasks}/>
+      <TaskTable tasks={tasks} onDelete={loadTasks} editMode={true}/>
       <TaskInput onAddTask={loadTasks}/>
     </React.Fragment>
   );
