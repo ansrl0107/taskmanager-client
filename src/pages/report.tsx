@@ -91,7 +91,7 @@ const Report: FC = () => {
     sm: { offset: 0, span: 6 },
     md: { push: 2, span: 4 },
     lg: { push: 6, span: 2 },
-  }
+  };
   return (
     <React.Fragment>
       <Col {...datepickerSize}>
