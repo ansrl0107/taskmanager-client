@@ -1,9 +1,55 @@
 import axios from 'axios';
 import { Ticket, Task, User, Project, TaskRequest, ProjectRequest, TicketRequest, UserRequest } from '../types';
 
-const api = axios.create({
+const accessToken = localStorage.getItem('accessToken');
+const headers = {
+  Authorization: `Bearer ${accessToken}`,
+};
+export const api = axios.create({
+  headers,
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
+
+// type APIMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+// interface APIConfig {
+//   data?: unknown;
+//   params?: unknown;
+// }
+// const api2 = async (method: APIMethodType, url: string, config?: APIConfig) => {
+//   const [state, setState] = useState({
+//     data: undefined,
+//     error: undefined,
+//     isLoading: true,
+//   });
+
+//   const tokenExpiry = new Date(localStorage.getItem('tokenExpiry') as string);
+//   if (tokenExpiry < new Date(Date.now() - 1000 * 60)) {
+//     const refreshToken = localStorage.getItem('refreshToken') as string;
+//     try {
+//       const res = await api.post('auth/token', { refreshToken });
+//       localStorage.setItem('accessToken', res.data.accessToken);
+//     } catch (err) {
+//       localStorage.removeItem('accessToken');
+//     }
+//   }
+
+//   const fetch = async () => {
+//     const data = config?.data;
+//     const params = config?.params;
+
+//     try {
+//       const res = await api({ method, data, params, url });
+//       setState({ ...state, data: res.data, isLoading: false });
+//     } catch (error) {
+//       setState({ ...state, error, isLoading: false });
+//     }
+
+//   };
+//   useEffect(() => {
+//     fetch();
+//   });
+//   return state;
+// };
 
 export const addTask = async (data: TaskRequest) => {
   const accessToken = localStorage.getItem('accessToken');
@@ -84,4 +130,12 @@ export const addTicket = async (data: TicketRequest) => {
 export const getTickets = async () => {
   const res = await api.get('/tickets');
   return res.data.tickets as Ticket[];
+};
+
+export const deleteTicket = async (ticketId: string) => {
+  await api.delete(`tickets/${ticketId}`);
+};
+
+export const closeTicket = async (ticketId: string) => {
+  await api.patch(`tickets/${ticketId}/close`);
 };
