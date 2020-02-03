@@ -1,8 +1,8 @@
 import React, { FC, useState, ChangeEvent, useEffect } from 'react';
-import { Input, InputNumber, Select, Button, message } from 'antd';
+import { TextArea, InputNumber, Select, Button, message } from 'antd';
 import { Ticket } from '../types';
 import { getTickets, addTask } from '../api';
-const InputGroup = Input.Group;
+const TextAreaGroup = TextArea.Group;
 const { Option } = Select;
 
 interface Props {
@@ -59,8 +59,8 @@ const TaskInput: FC<Props> = ({ onAddTask }) => {
       >
         {tickets.map(renderTicket)}
       </Select>
-      <InputGroup compact={true}>
-        <Input
+      <TextAreaGroup compact={true}>
+        <TextArea
           value={content}
           placeholder="수행한 업무를 입력해주세요"
           onChange={onChangeContent}
@@ -73,7 +73,7 @@ const TaskInput: FC<Props> = ({ onAddTask }) => {
           onChange={onChangeWorkingTime}
           style={{ width: '20%' }}
         />
-      </InputGroup>
+      </TextAreaGroup>
       <Button block={true} onClick={onSubmit} style={{ marginTop: 16 }} type="primary">저장하기</Button>
     </div>
   );
