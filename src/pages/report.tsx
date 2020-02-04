@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useCallback, CSSProperties } from 'reac
 import { TaskTable } from '../components';
 import { getTeamTasks } from '../api';
 import { Task } from '../types';
-import { DatePicker, Button, Col } from 'antd';
+import { DatePicker, Button, Col, Row } from 'antd';
 import moment from 'moment';
 import 'moment-timezone';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
@@ -94,12 +94,14 @@ const Report: FC = () => {
   };
   return (
     <React.Fragment>
-      <Col {...datepickerSize}>
-        <DatePicker.RangePicker onChange={onChangeDateRange} value={dateRange} style={style}/>
-      </Col>
-      <Col {...printButtonSize}>
-        <Button loading={printLoading} onClick={printReport} block={true}>Print</Button>
-      </Col>
+      <Row style = {{ marginBottom:16 }} gutter={[16, 16]}>
+        <Col {...datepickerSize}>
+          <DatePicker.RangePicker onChange={onChangeDateRange} value={dateRange} style={style}/>
+        </Col>
+        <Col {...printButtonSize}>
+          <Button loading={printLoading} onClick={printReport} block={true}>Print</Button>
+        </Col>
+      </Row>
       <section className="report-table-list">
         {usernames.map(renderUserTaskTable)}
       </section>
