@@ -39,7 +39,7 @@ const Report: FC = () => {
     .map(task => task.user.name)
     .reduce((acc: string[], cur) => acc.includes(cur) ? acc : [...acc, cur], []);
   const renderUserTaskTable = (username: string) => (
-    <TaskTable tasks={tasks.filter(task => task.user.name === username)}/>
+    <TaskTable key={username} tasks={tasks.filter(task => task.user.name === username)}/>
   );
   const printReport = async () => {
     setPrintLoading(true);
