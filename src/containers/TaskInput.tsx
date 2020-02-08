@@ -2,6 +2,8 @@ import React, { FC, useState, ChangeEvent, useEffect } from 'react';
 import { Input, InputNumber, Select, Button, message } from 'antd';
 import { Ticket } from '../types';
 import { getTickets, addTask } from '../api';
+import korean from 'hangul-js';
+
 const InputGroup = Input.Group;
 const { Option } = Select;
 
@@ -56,6 +58,14 @@ const TaskInput: FC<Props> = ({ onAddTask }) => {
         onChange={setTicketId}
         style={{ width: '100%', marginBottom: 16 }}
         placeholder="ticket"
+        filterOption={(value, option) => {
+          const isIncludes = (target: string, source: string) => {
+            const t = korean.disassembleToString(target.toLowerCase().replace(/\s/g, ''));
+            const s = korean.disassembleToString(source.toLowerCase().replace(/\s/g, ''));
+            return t.includes(s);
+          };
+          return isIncludes(option.props.children?.toString() as string, value);
+        }}
       >
         {tickets.map(renderTicket)}
       </Select>

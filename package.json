@@ -5,6 +5,7 @@
   "dependencies": {
     "antd": "^3.26.7",
     "axios": "^0.19.2",
+    "hangul-js": "^0.2.6",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "moment": "^2.24.0",
