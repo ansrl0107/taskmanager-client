@@ -64,7 +64,6 @@ const TaskTable: FC<Props> = ({ tasks, onDelete, editMode = false }) => {
   const actionColumn = {
     title: 'Action',
     render: (row: any) => {
-      console.log(row);
       const onClick = async () => {
         await deleteTask(row.key);
         if (onDelete) {
