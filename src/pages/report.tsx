@@ -64,13 +64,13 @@ const Report: FC = () => {
       const doc = new jsPDF('p', 'mm');
       let position = 0;
 
-      doc.addImage(imgData, 'PNG', 16, position, imgWidth - 32, imgHeight);
+      doc.addImage(imgData, 'PNG', 16, position, imgWidth - 32, imgHeight, '', 'FAST');
       heightLeft -= pageHeight;
 
       while (heightLeft >= 20) {
         position = heightLeft - imgHeight;
         doc.addPage();
-        doc.addImage(imgData, 'PNG', 16, position, imgWidth - 32, imgHeight);
+        doc.addImage(imgData, 'PNG', 16, position, imgWidth - 32, imgHeight, '', 'FAST');
         heightLeft -= pageHeight;
       }
 
