@@ -64,3 +64,11 @@ export interface TicketRequest {
   type: TicketType;
   priority: number;
 }
+
+export interface Plan {
+  id: string;
+  deadline: string; // YYYY-MM-DD
+  content: string;
+  closedAt: Date;
+  createdAt: Date;
+}

@@ -3,6 +3,7 @@ import PrivateRoute from './PrivateRoute';
 import AddTicketCard from './AddTicketCard';
 import AddProjectModal from './AddProjectModal';
 import { TicketCard } from './TicketCard';
+import { PlanList } from './PlanList';
 
 export {
   TaskInput,
@@ -10,4 +11,5 @@ export {
   AddTicketCard,
   AddProjectModal,
   TicketCard,
+  PlanList,
 };

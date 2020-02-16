@@ -34,11 +34,11 @@ const TaskPage: FC = () => {
     maxWidth: 128,
   };
   return (
-    <React.Fragment>
+    <section style={{ margin: 16 }}>
       <DatePicker onChange={onChange} value={date} style={style}/>
       <TaskTable tasks={tasks} onDelete={loadTasks} editMode={true}/>
       <TaskInput onAddTask={loadTasks}/>
-    </React.Fragment>
+    </section>
   );
 };
 

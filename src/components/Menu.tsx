@@ -12,7 +12,7 @@ const MyMenu: FC = () => {
   const onClickTask = () => movePage('/task');
   const onClickProject = () => movePage('/project');
   const style: CSSProperties = {
-    height: '100%',
+    height: '100vh',
     padding: '32px 0',
   };
   return (

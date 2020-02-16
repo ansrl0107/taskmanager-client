@@ -8,7 +8,7 @@ const PageTemplate: FC = ({ children }) => (
     <Sider breakpoint="md">
       <Menu/>
     </Sider>
-    <Content style={{ padding: 16 }}>{children}</Content>
+    <Content style={{ padding: 0, height: '100vh' }}>{children}</Content>
   </Layout>
 );
 

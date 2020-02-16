@@ -93,7 +93,7 @@ const Report: FC = () => {
     lg: { push: 6, span: 2 },
   };
   return (
-    <React.Fragment>
+    <section style={{ margin: 16 }}>
       <Col {...datepickerSize}>
         <DatePicker.RangePicker onChange={onChangeDateRange} value={dateRange} style={style}/>
       </Col>
@@ -103,7 +103,7 @@ const Report: FC = () => {
       <section className="report-table-list">
         {usernames.map(renderUserTaskTable)}
       </section>
-    </React.Fragment>
+    </section>
   );
 };
 

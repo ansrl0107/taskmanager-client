@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Ticket, Task, User, Project, TaskRequest, ProjectRequest, TicketRequest, UserRequest } from '../types';
+import { Ticket, Task, User, Project, TaskRequest, ProjectRequest, TicketRequest, UserRequest, Plan } from '../types';
 
 const accessToken = localStorage.getItem('accessToken');
 const headers = {
@@ -138,4 +138,26 @@ export const deleteTicket = async (ticketId: string) => {
 
 export const closeTicket = async (ticketId: string) => {
   await api.patch(`tickets/${ticketId}/close`);
+};
+
+export const addPlan = async (content: string, deadline: Date) => {
+  const res = await api.post('plans', { content, deadline });
+  return res.data.plan as Plan;
+};
+
+export const deletePlan = async (planId: string) => {
+  await api.delete(`plans/${planId}`);
+};
+
+export const getUserPlans = async (userId: string) => {
+  const res = await api.get(`users/${userId}/plans`);
+  return res.data.plans as Plan[];
+};
+
+export const closePlan = async (planId: string) => {
+  await api.patch(`plans/${planId}`, { state: 'close' });
+};
+
+export const openPlan = async (planId: string) => {
+  await api.patch(`plans/${planId}`, { state: 'open' });
 };

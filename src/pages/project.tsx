@@ -56,7 +56,7 @@ const ProjectPage: FC = () => {
     <Button type="link" icon="edit" onClick={() => setModalVisible(true)}>Add Project</Button>
   );
   return (
-    <React.Fragment>
+    <section style={{ margin: 16 }}>
       <AddProjectModal
         visible={modalVisible}
         setVisible={setModalVisible}
@@ -65,7 +65,7 @@ const ProjectPage: FC = () => {
       <Tabs tabBarExtraContent={addProjectButton}>
         {projects.map(renderProject)}
       </Tabs>
-    </React.Fragment>
+    </section>
   );
 };
 
