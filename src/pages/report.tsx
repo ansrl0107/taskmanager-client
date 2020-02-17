@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useCallback, CSSProperties } from 'react';
 import { TaskTable } from '../components';
 import { getTeamTasks } from '../api';
-import { Task, Plan } from '../types';
+import { Task } from '../types';
 import { DatePicker, Button, Col, Row } from 'antd';
 import moment from 'moment';
 import 'moment-timezone';
