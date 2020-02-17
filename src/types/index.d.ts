@@ -36,6 +36,7 @@ export interface Task {
   ticket: Ticket;
   content: string;
   workingTime: number;
+  createdAt: Date;
 }
 
 export interface TaskRequest {

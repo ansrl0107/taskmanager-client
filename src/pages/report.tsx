@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect, useCallback, CSSProperties } from 'react';
 import { TaskTable } from '../components';
 import { getTeamTasks } from '../api';
-import { Task } from '../types';
-import { DatePicker, Button, Col } from 'antd';
+import { Task, Plan } from '../types';
+import { DatePicker, Button, Col, Row } from 'antd';
 import moment from 'moment';
 import 'moment-timezone';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
@@ -38,6 +38,24 @@ const Report: FC = () => {
   const usernames = tasks
     .map(task => task.user.name)
     .reduce((acc: string[], cur) => acc.includes(cur) ? acc : [...acc, cur], []);
+  const filterToday = (task: Task) => {
+    const { createdAt } = task;
+    const today = moment().tz('Asia/Seoul').format('YYYY-MM-DD');
+    return moment(createdAt).tz('Asia/Seoul').format('YYYY-MM-DD') === today;
+  };
+
+  interface CountPerUser {
+    [username: string]: number;
+  }
+  const groupByUser = (acc: CountPerUser, cur: Task) => {
+    if (!acc[cur.user.name]) {
+      acc[cur.user.name] = 0;
+    }
+    acc[cur.user.name] += cur.workingTime;
+    return acc;
+  };
+  const countPerUser = tasks.filter(filterToday).reduce(groupByUser, {});
+  console.log(countPerUser);
   const renderUserTaskTable = (username: string) => (
     <TaskTable key={username} tasks={tasks.filter(task => task.user.name === username)}/>
   );
@@ -93,13 +111,18 @@ const Report: FC = () => {
     lg: { push: 6, span: 2 },
   };
   return (
-    <section style={{ margin: 16 }}>
-      <Col {...datepickerSize}>
-        <DatePicker.RangePicker onChange={onChangeDateRange} value={dateRange} style={style}/>
-      </Col>
-      <Col {...printButtonSize}>
-        <Button loading={printLoading} onClick={printReport} block={true}>Print</Button>
-      </Col>
+    <section style={{ padding: 16 }}>
+      <Row gutter={[8, 8]}>
+        <Col {...datepickerSize}>
+          <DatePicker.RangePicker onChange={onChangeDateRange} value={dateRange} style={style}/>
+        </Col>
+        <Col {...printButtonSize}>
+          <Button loading={printLoading} onClick={printReport} block={true}>Print</Button>
+        </Col>
+      </Row>
+      <Row>
+
+      </Row>
       <section className="report-table-list">
         {usernames.map(renderUserTaskTable)}
       </section>
